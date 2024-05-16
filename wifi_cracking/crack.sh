@@ -91,7 +91,7 @@
                 if [ $wordlist_mode -eq 1 ]
                     then
                     echo opening mentalist can take a while so be patient
-                    ./mentalist
+                    ./Mentalist
                 fi
                 if [ $wordlist_mode -eq 2 ]
                     then

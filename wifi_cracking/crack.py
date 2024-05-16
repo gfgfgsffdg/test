@@ -12,7 +12,26 @@ hashcat_file = None
 wordlist = None
 session_name = None
 double_check = None
+#word menue:
+mentalist_or_crunch = None
+crunch_options = None
 #functions
+def check_where_i_am():
+    global what_mode
+    if what_mode == 99:
+        main_menue()
+    if what_mode == 0:
+        crack_in_hashcat()
+    if what_mode == 1:
+        wordlist_menue()
+    if what_mode == 2:
+        session_menue()
+    if what_mode == 3:
+        capture_mode()
+    if what_mode == 4:
+        dependencie_mode()
+    if what_mode == 5:
+        close()
     #0 to crack a file in hashcat
 def crack_in_hashcat():
     global main_path
@@ -54,11 +73,23 @@ def crack_in_hashcat():
         crack_in_hashcat()
     #main
 def wordlist_menue():
+    os.system("clear")
+    global mentalist_or_crunch
+    global crunch_options
+    mentalist_or_crunch = None
     print("Work under construction")
-    #print("What do you want to do?")
-    #print("Enter 1 to start mentalist")
-    #print("Enter 2 to start Crunch")
-
+    print("What do you want to do?")
+    print("Enter 1 to start mentalist")
+    print("Enter 2 to start Crunch")
+    mentalist_or_crunch = input("Enter 1 or 2: ")
+    print(mentalist_or_crunch)
+    if mentalist_or_crunch == "1":
+        os.system("./Mentalist")
+    if mentalist_or_crunch == "2":
+        print("please enter all options for crunch(use -o filename to save to file)")
+        print("IMPORTANT!!! this is a unfinished feature it works but i will add my own proper crunch engine")
+        crunch_options  = input("Enter all crunch options:")
+        os.system("crunch " + crunch_options)
 def session_menue():
     print("work under construction")
 def capture_mode():
@@ -82,17 +113,6 @@ def main_menue():
     print()
     global what_mode # defines that it shoud use the normal what_mode instead of a function specific one
     what_mode = int(input())
-if what_mode == 99:
-    main_menue()
-if what_mode == 0:
-    crack_in_hashcat()
-if what_mode == 1:
-    wordlist_menue()
-if what_mode == 2:
-    session_menue()
-if what_mode == 3:
-    capture_mode()
-if what_mode == 4:
-    dependencie_mode()
-if what_mode == 5:
-    close()
+    check_where_i_am()
+#debug
+check_where_i_am()
