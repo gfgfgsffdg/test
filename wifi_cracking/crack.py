@@ -15,21 +15,29 @@ double_check = None
 #word menue:
 mentalist_or_crunch = None
 crunch_options = None
+#session menue
+session_name_recoverie = "None"
 #functions
 def check_where_i_am():
     global what_mode
     if what_mode == 99:
         main_menue()
+        check_where_i_am()
     if what_mode == 0:
         crack_in_hashcat()
+        check_where_i_am()
     if what_mode == 1:
         wordlist_menue()
+        check_where_i_am()
     if what_mode == 2:
         session_menue()
+        check_where_i_am()
     if what_mode == 3:
         capture_mode()
+        check_where_i_am()
     if what_mode == 4:
         dependencie_mode()
+        check_where_i_am()
     if what_mode == 5:
         close()
     #0 to crack a file in hashcat
@@ -74,15 +82,15 @@ def crack_in_hashcat():
     #main
 def wordlist_menue():
     os.system("clear")
+    global what_mode
     global mentalist_or_crunch
     global crunch_options
     mentalist_or_crunch = None
-    print("Work under construction")
     print("What do you want to do?")
     print("Enter 1 to start mentalist")
     print("Enter 2 to start Crunch")
     mentalist_or_crunch = input("Enter 1 or 2: ")
-    print(mentalist_or_crunch)
+    #print(mentalist_or_crunch)
     if mentalist_or_crunch == "1":
         os.system("./Mentalist")
     if mentalist_or_crunch == "2":
@@ -90,8 +98,14 @@ def wordlist_menue():
         print("IMPORTANT!!! this is a unfinished feature it works but i will add my own proper crunch engine")
         crunch_options  = input("Enter all crunch options:")
         os.system("crunch " + crunch_options)
+    what_mode = 99
 def session_menue():
+    global what_mode
     print("work under construction")
+    session_name_recoverie = input("Please enter the name of the session: ")
+    os.system("hashcat --restore --session " + session_name_recoverie)
+    time.sleep(5)
+    what_mode = 99
 def capture_mode():
     print("work under construction")
 def dependencie_mode():
@@ -114,5 +128,4 @@ def main_menue():
     global what_mode # defines that it shoud use the normal what_mode instead of a function specific one
     what_mode = int(input())
     check_where_i_am()
-#debug
 check_where_i_am()
