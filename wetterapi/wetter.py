@@ -64,4 +64,3 @@ wo.pack()
 neu_laden = tkinter.Button(root, text="Neu laden", command=get_lat_and_long)
 neu_laden.pack()
 root.mainloop()
-:((
