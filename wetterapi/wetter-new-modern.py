@@ -52,11 +52,16 @@ root.title("Wetter app")
 #functions
 def get_lat_and_long():
     global parameter
+    global error
     userinput = wo.get()
     location = geolocator.geocode(userinput)
-    get_weather_ant_temp(str(location.latitude), str(location.longitude))
-    Das_wetter.configure(text="Das Wetter ist " + proccesed_condition_auf_deutsch[proccesed_condition])
-    die_temperatur.configure(text="Die Temperatur beträgt " + str(temperatur) + "°")
+    if location == None:
+        error.configure(text="Error der Ort " + userinput + " wurde nicht gefunden")
+    else:
+        error.configure(text="")
+        get_weather_ant_temp(str(location.latitude), str(location.longitude))
+        Das_wetter.configure(text="Das Wetter ist " + proccesed_condition_auf_deutsch[proccesed_condition])
+        die_temperatur.configure(text="Die Temperatur beträgt " + str(temperatur) + "°")
 #main
 def get_weather_ant_temp(lat, long):
     global proccesed_condition
@@ -71,11 +76,10 @@ def get_weather_ant_temp(lat, long):
     proccesed_condition = response_raw2["condition"]
     temperatur = int(response_raw2["temperature"])
     icon_plaintext = response_raw2["icon"]
-
     #gui_update()
 def gui_update(): #customtkinter CTK
 
-    global wo, proccesed_condition, proccesed_condition_auf_deutsch, Das_wetter, die_temperatur, root, weather_icons, icon_plaintext, icon
+    global wo, proccesed_condition, proccesed_condition_auf_deutsch, Das_wetter, die_temperatur, root, weather_icons, icon_plaintext, icon, error
     Das_wetter = customtkinter.CTkLabel(root, text="Das Wetter ist " + proccesed_condition_auf_deutsch[proccesed_condition], font=("arial", 20))
     Das_wetter.pack(pady=5)
     die_temperatur = customtkinter.CTkLabel(root, text="Die Temperatur beträgt " + str(temperatur) + "°", font=("arial", 20))
@@ -88,6 +92,8 @@ def gui_update(): #customtkinter CTK
     neu_laden.pack(pady=15)
     icon = customtkinter.CTkLabel(root, text=weather_icons[icon_plaintext], font=("arial", 50))
     icon.place(x=10, y=5)
+    error = customtkinter.CTkLabel(root, text="", text_color="red")
+    error.pack()
     root.mainloop()
 
 
