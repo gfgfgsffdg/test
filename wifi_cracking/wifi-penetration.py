@@ -17,6 +17,8 @@ mentalist_or_crunch = None
 crunch_options = None
 #session menue
 session_name_recoverie = "None"
+#capture menue
+capture_mode = None
 #functions
 def check_where_i_am():
     global what_mode
@@ -101,13 +103,18 @@ def wordlist_menue():
     what_mode = 99
 def session_menue():
     global what_mode
-    print("work under construction")
     session_name_recoverie = input("Please enter the name of the session: ")
     os.system("hashcat --restore --session " + session_name_recoverie)
     time.sleep(5)
     what_mode = 99
 def capture_mode():
-    print("work under construction")
+    print("Enter 1 to open airgeddon")
+    print ("Enter 2 to open wireshark")
+    capture_mode = input("Enter 1 or 2: ")
+    if int(capture_mode) == 1:
+        os.system("sudo bash ./airgeddon/airgeddon.sh")
+    elif int(capture_mode) == 2:
+        os.system("sudo wireshark")
 def dependencie_mode():
     print("work under construction")
 def close():

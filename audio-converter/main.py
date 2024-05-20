@@ -1,5 +1,4 @@
-import pydub #m4a to mp3
-import os
+import pydub
 
 path = input("Wass ist the datei name?")
 #format_input = input("wass ist das datei format von der datei?")
