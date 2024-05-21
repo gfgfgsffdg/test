@@ -1,5 +1,5 @@
 import requests
-import json
+#import json
 import customtkinter
 from geopy.geocoders import Nominatim
 from PIL import Image
@@ -64,6 +64,7 @@ def get_lat_and_long():
         Das_wetter.configure(text="Das Wetter ist " + proccesed_condition_auf_deutsch[proccesed_condition])
         die_temperatur.configure(text="Die Temperatur beträgt " + str(temperatur) + "°")
         icon.configure(image=weather_icons[icon_plaintext])
+        wo_wir_sind.configure(text=userinput)
 #main
 def get_weather_ant_temp(lat, long):
     global proccesed_condition
@@ -78,16 +79,19 @@ def get_weather_ant_temp(lat, long):
     proccesed_condition = response_raw2["condition"]
     temperatur = int(response_raw2["temperature"])
     icon_plaintext = response_raw2["icon"]
-    #gui_update()
+
 
 
 get_weather_ant_temp("52.52", "13.4")
+#gui
+wo_wir_sind = customtkinter.CTkLabel(root, text="berlin", font=("arial", 20))
+wo_wir_sind.pack()
 Das_wetter = customtkinter.CTkLabel(root, text="Das Wetter ist " + proccesed_condition_auf_deutsch[proccesed_condition])
 Das_wetter.pack(pady=5)
 die_temperatur = customtkinter.CTkLabel(root, text="Die Temperatur beträgt " + str(temperatur) + "°", font=("arial", 20))
 die_temperatur.pack(pady=5)
 welche_stadt_label = customtkinter.CTkLabel(root, text="Welche tadt?", font=("arial", 20))
-welche_stadt_label.place(x=5, y=80)
+welche_stadt_label.place(x=10, y=110)
 wo = customtkinter.CTkEntry(root)
 wo.pack(pady=5)
 neu_laden = customtkinter.CTkButton(root, text="Neu laden", command=get_lat_and_long)
