@@ -2,3 +2,6 @@
 **/wifi_cracking/pcaps/*
 **/wifi_cracking/wordlists/*
 wetterapi/wetter-new-modern.spec
+wetterapi/ai.py
+wetterapi/weather_prediction_dataset.csv
+wifi_cracking/airgeddon
