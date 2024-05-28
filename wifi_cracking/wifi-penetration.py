@@ -13,13 +13,56 @@ wordlist = None
 session_name = None
 double_check = None
 #word menue:
-mentalist_or_crunch = None
+wordlist_menue_mode = None
 crunch_options = None
+merge_dir = None
+merged_file_name = None
 #session menue
 session_name_recoverie = "None"
 #capture menue
 capture_mode = None
 #functions
+def merge_text_files(directory_path, output_file):
+    """
+    Merges the contents of all text files in the specified directory into a single output file.
+
+    Args:
+        directory_path (str): Path to the directory containing text files.
+        output_file (str): Path to the output file where the merged content will be saved.
+    """
+    try:
+        with open(output_file, 'w') as output:
+            for filename in os.listdir(directory_path):
+                if filename.endswith('.txt'):
+                    file_path = os.path.join(directory_path, filename)
+                    with open(file_path, 'r') as input_file:
+                        output.write(input_file.read())
+                        output.write('\n')  # Add a newline after each file's content
+        print(f"Successfully merged text files into {output_file}")
+    except Exception as e:
+        print(f"Error merging text files: {e}")
+def filter_lines_by_length(input_file, output_file, target_length):
+    """
+    Reads lines from the input file, filters out lines with the specified length or longer,
+    and writes the filtered lines to the output file.
+
+    Args:
+        input_file (str): Path to the input text file.
+        output_file (str): Path to the output file where filtered lines will be saved.
+        target_length (int): Desired minimum line length for filtering.
+    """
+    try:
+        with open(input_file, 'r') as input_text:
+            lines = input_text.readlines()
+            filtered_lines = [line.strip() for line in lines if len(line.strip()) >= target_length]
+
+        with open(output_file, 'w') as output_text:
+            for line in filtered_lines:
+                output_text.write(line + '\n')
+
+        print(f"Filtered lines with length {target_length} or longer saved to {output_file}")
+    except Exception as e:
+        print(f"Error filtering lines: {e}")
 def check_where_i_am():
     global what_mode
     if what_mode == 99:
@@ -85,21 +128,27 @@ def crack_in_hashcat():
 def wordlist_menue():
     os.system("clear")
     global what_mode
-    global mentalist_or_crunch
+    global wordlist_menue_mode
     global crunch_options
-    mentalist_or_crunch = None
+    global merge_dir, merged_file_name
+    wordlist_menue_mode = None
     print("What do you want to do?")
     print("Enter 1 to start mentalist")
     print("Enter 2 to start Crunch")
-    mentalist_or_crunch = input("Enter 1 or 2: ")
-    #print(mentalist_or_crunch)
-    if mentalist_or_crunch == "1":
+    print("Enter 3 to merge all txts in a dir to one")
+    wordlist_menue_mode = input("Enter 1 or 2: ")
+    #print(wordlist_menue_mode)
+    if wordlist_menue_mode == "1":
         os.system("./Mentalist")
-    if mentalist_or_crunch == "2":
+    if wordlist_menue_mode == "2":
         print("please enter all options for crunch(use -o filename to save to file)")
         print("IMPORTANT!!! this is a unfinished feature it works but i will add my own proper crunch engine")
         crunch_options  = input("Enter all crunch options:")
         os.system("crunch " + crunch_options)
+    if wordlist_menue_mode == "3":
+        merge_dir = input("In what dir are the files located?")
+        merged_file_name = input("What is the name off the new file")
+        merge_text_files(merge_dir, merged_file_name)
     what_mode = 99
 def session_menue():
     global what_mode
