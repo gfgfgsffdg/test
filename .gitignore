@@ -5,3 +5,6 @@ wetterapi/wetter-new-modern.spec
 wetterapi/ai.py
 wetterapi/weather_prediction_dataset.csv
 wifi_cracking/airgeddon
+.vscode/launch.json
+raspberry-pi-try/main.pyi
+raspberry-pi-thermal/password.txt
